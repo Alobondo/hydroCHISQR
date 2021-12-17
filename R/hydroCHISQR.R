@@ -66,11 +66,11 @@ hydroCHISQR <- function(df, nc, dist_param, alpha) {
   }
 
   distrib_selec <- min(as.numeric(chi_calc)/theoretical_chi)
-  print(paste0("Distribution of minimal Chi-Calculated / Chi-Theorical = ",
-               colnames(df)[which(Chi_C_Chi_T[]==distrib_selec)+1]))
+  aux1 <- colnames(df)[which(Chi_C_Chi_T[]==distrib_selec)+1]
+  print(paste0("Distribution of minimal Chi-Calculated / Chi-Theorical = ",aux1))
 
-  print(paste0("Minimal Chi-Calculated / Chi-Theorical = ",
-               print(Chi_C_Chi_T[Chi_C_Chi_T[]==distrib_selec])))
+  aux2 <- Chi_C_Chi_T[Chi_C_Chi_T[]==distrib_selec]
+  print(paste0("Minimal Chi-Calculated / Chi-Theorical = ",aux2))
 
   distrib_calc_theo <- as.numeric(chi_calc)/theoretical_chi
   distrib_calc <- as.numeric(chi_calc)
@@ -82,7 +82,7 @@ hydroCHISQR <- function(df, nc, dist_param, alpha) {
 
   print("Chi-Calculated / Chi-Theorical for each distribution = ")
 
-  distrib_calc_theo
+  print(distrib_calc_theo)
 
   marca_de_clase <- brks + int/2
 
@@ -92,9 +92,9 @@ hydroCHISQR <- function(df, nc, dist_param, alpha) {
     value = obs_out[,"Freq"]
   )
 
-  df_aux <- data.frame(matrix(unlist(sim_factor), ncol=length(sim_factor), byrow=F))[8:14,]
+  df_aux <- data.frame(matrix(unlist(sim_factor), ncol=length(sim_factor), byrow=F))[(nbreaks+1):(2*nbreaks),]
   colnames(df_aux) <- colnames(df)[2:(dim(df)[2])]
-  rownames(df_aux) <- seq(1,7,1)
+  rownames(df_aux) <- seq(1,nbreaks,1)
   df_aux <- data.frame(name = data$name, df_aux)
   df_aux <- reshape2::melt(df_aux,  id.vars = 'name', variable.name = 'Distrib')
 
