@@ -66,21 +66,26 @@ hydroCHISQR <- function(df, nc, dist_param, alpha) {
   }
 
   distrib_selec <- min(as.numeric(chi_calc)/theoretical_chi)
-  print("Distribution of minimal Chi-Calculated / Chi-Theorical = ")
-  colnames(df)[which(Chi_C_Chi_T[]==distrib_selec)+1]
-  print("Minimal Chi-Calculated / Chi-Theorical = ")
-  Chi_C_Chi_T[Chi_C_Chi_T[]==distrib_selec]
+  print("Distribution of minimal Chi-Calculated / Chi-Theorical = ",
+        colnames(df)[which(Chi_C_Chi_T[]==distrib_selec)+1])
+
+  print("Minimal Chi-Calculated / Chi-Theorical = ",
+        Chi_C_Chi_T[Chi_C_Chi_T[]==distrib_selec])
+
+
 
   distrib_calc_theo <- as.numeric(chi_calc)/theoretical_chi
   distrib_calc <- as.numeric(chi_calc)
   distrib_theo <- rep(theoretical_chi,length(chi_calc))
-  distrib_calc_theo <- data.frame(cbind(Ditribution = colnames(df)[2:dim(df)[2]],
+  distrib_calc_theo <- data.frame(cbind(Distribution = colnames(df)[2:dim(df)[2]],
                                         chi_calc = round(distrib_calc,3),
                                         chi_theo = round(distrib_theo,3),
                                         calc_theo = round(distrib_calc_theo,3)))
 
-  print("Chi-Calculated / Chi-Theorical for each distribution = ")
-  distrib_calc_theo
+  print("Chi-Calculated / Chi-Theorical for each distribution = ",
+        distrib_calc_theo)
+
+
 
   marca_de_clase <- brks + int/2
 
