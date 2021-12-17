@@ -26,27 +26,27 @@ hydroCHISQR <- function(df, nc, dist_param, alpha) {
   factor_obs <- cut(df$Obs, breaks=brks, include.lowest=TRUE)
   obs_out <- as.data.frame(table(factor_obs))
   obs_out <- transform(obs_out, cumFreq = cumsum(obs_out$Freq), relative = prop.table(obs_out$Freq))
-  print(obs_out, digits=3)
 
   sim_factor <- list()
-  for(i in (dim(df)[2]-1)) {
+  for(i in 1:(dim(df)[2]-1)) {
     factor_sim <- cut(df[,i+1], breaks=brks, include.lowest=TRUE)
-    sim_factor[[i]] <- transform(table(factor_sim), cumFreq = cumsum(factor_sim$Freq), relative = prop.table(factor_sim$Freq))
+    factor_sim <- as.data.frame(table(factor_sim))
+    sim_factor[[i]] <- transform(factor_sim, cumFreq = cumsum(factor_sim$Freq), relative = prop.table(factor_sim$Freq))
   }
 
   Frec_rel_sim <- list()
-  for(i in (dim(df)[2]-1)) {
+  for(i in 1:(dim(df)[2]-1)) {
     Frec_rel_sim[[i]] <- sim_factor[[i]][,'Freq']/sum(obs_out$Freq)
   }
 
   sim_out <- list()
-  for(i in (dim(df)[2]-1)) {
+  for(i in 1:(dim(df)[2]-1)) {
     sim_out[[i]] <- (obs_out[,'relative'] - Frec_rel_sim[[i]])^2/Frec_rel_sim[[i]]
     sim_out[[i]][is.nan(sim_out[[i]])] = 0
   }
 
   chi_calc <- list()
-  for(i in (dim(df)[2]-1)) {
+  for(i in 1:(dim(df)[2]-1)) {
     chi_calc[[i]] <- sum(obs_out[,'Freq'])*sum(sim_out[[i]],na.rm = TRUE)
   }
 
@@ -56,12 +56,12 @@ hydroCHISQR <- function(df, nc, dist_param, alpha) {
   theoretical_chi <- stats::qchisq(1 - alpha, degree_freedom)
 
   test_chi_hidrol <- list()
-  for(i in (dim(df)[2]-1)) {
+  for(i in 1:(dim(df)[2]-1)) {
     test_chi_hidrol[[i]] <- chi_calc[[i]] <= theoretical_chi
   }
 
   Chi_C_Chi_T <- list()
-  for(i in (dim(df)[2]-1)) {
+  for(i in 1:(dim(df)[2]-1)) {
     Chi_C_Chi_T[[i]] <- as.numeric(chi_calc[i])/theoretical_chi
   }
 
