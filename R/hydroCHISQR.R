@@ -30,8 +30,8 @@ hydroCHISQR <- function(df, nc, dist_param, alpha) {
   sim_factor <- list()
   for(i in 1:(dim(df)[2]-1)) {
     factor_sim <- cut(df[,i+1], breaks=brks, include.lowest=TRUE)
-    factor_sim <- as.data.frame(table(factor_sim))
-    sim_factor[[i]] <- transform(factor_sim, cumFreq = cumsum(factor_sim$Freq), relative = prop.table(factor_sim$Freq))
+    sim_out <- as.data.frame(table(factor_sim))
+    sim_factor[[i]] <- transform(sim_out, cumFreq = cumsum(sim_out$Freq), relative = prop.table(sim_out$Freq))
   }
 
   Frec_rel_sim <- list()
