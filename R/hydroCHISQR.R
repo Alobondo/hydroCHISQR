@@ -67,10 +67,8 @@ hydroCHISQR <- function(df, nc, dist_param, alpha) {
 
   distrib_selec <- min(as.numeric(chi_calc)/theoretical_chi)
   aux1 <- colnames(df)[which(Chi_C_Chi_T[]==distrib_selec)+1]
-  print(paste0("Distribution of minimal Chi-Calculated / Chi-Theorical = ",aux1))
 
   aux2 <- Chi_C_Chi_T[Chi_C_Chi_T[]==distrib_selec]
-  print(paste0("Minimal Chi-Calculated / Chi-Theorical = ",aux2))
 
   distrib_calc_theo <- as.numeric(chi_calc)/theoretical_chi
   distrib_calc <- as.numeric(chi_calc)
@@ -79,10 +77,6 @@ hydroCHISQR <- function(df, nc, dist_param, alpha) {
                                         chi_calc = round(distrib_calc,3),
                                         chi_theo = round(distrib_theo,3),
                                         calc_theo = round(distrib_calc_theo,3)))
-
-  print("Chi-Calculated / Chi-Theorical for each distribution = ")
-
-  print(distrib_calc_theo)
 
   marca_de_clase <- brks + int/2
 
@@ -96,7 +90,7 @@ hydroCHISQR <- function(df, nc, dist_param, alpha) {
   colnames(df_aux) <- colnames(df)[2:(dim(df)[2])]
   rownames(df_aux) <- seq(1,nbreaks,1)
   df_aux <- data.frame(name = data$name, df_aux)
-  df_aux <- reshape2::melt(df_aux,  id.vars = 'name', variable.name = 'Distrib')
+  df_aux <- reshape2::melt(df_aux, id.vars = 'name', variable.name = 'Distrib')
 
   # Barplot
   plot1 <- ggplot2::ggplot(data, aes(x=data$name, y=data$value, fill="gold2")) +
@@ -112,5 +106,11 @@ hydroCHISQR <- function(df, nc, dist_param, alpha) {
   ggarrange(plot1, tbl,
             ncol = 1, nrow = 2,
             heights = c(1.8,1))
+
+  print("Chi-Calculated / Chi-Theorical for each distribution = ")
+  print(distrib_calc_theo)
+
+  print(paste0("Distribution of minimal Chi-Calculated / Chi-Theorical = ",aux1))
+  print(paste0("Minimal Chi-Calculated / Chi-Theorical = ",aux2))
 
 }
