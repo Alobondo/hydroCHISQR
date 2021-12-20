@@ -97,12 +97,12 @@ hydroCHISQR <- function(df, nc, dist_param, alpha, c_test) {
     df_aux <- reshape2::melt(df_aux, id.vars = 'name', variable.name = 'Distrib')
 
     # Barplot
-    plot1 <- ggplot2::ggplot(data, aes(x=data$name, y=data$value, fill="gold2")) +
+    plot1 <- ggplot2::ggplot(data, aes(x=name, y=value, fill="gold2")) +
       geom_bar(colour="black", stat = "identity", width=5) +
       xlab("Variable") + ylab("Absolute Freq.") +
       theme_bw() + scale_fill_manual(values="gold2", labels="Real Frec.") +
-      geom_line(data = df_aux, aes(colour = df_aux$Distrib), lwd = 1) +
-      geom_point(data = df_aux, aes(colour = df_aux$Distrib), shape = 5, size = 1.5)
+      geom_line(data = df_aux, aes(colour = Distrib), lwd = 1) +
+      geom_point(data = df_aux, aes(colour = Distrib), shape = 5, size = 1.5)
 
     table_chi <- t(distrib_calc_theo)
     tbl <- ggtexttable(table_chi)
