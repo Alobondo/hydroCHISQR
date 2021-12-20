@@ -78,6 +78,8 @@ hydroCHISQR <- function(df, nc, dist_param, alpha) {
                                         chi_theo = round(distrib_theo,3),
                                         calc_theo = round(distrib_calc_theo,3)))
 
+  distrib_calc_theo$test <- with(distrib_calc_theo, ifelse(calc_theo < 1, "Accepted", "Rejected"))
+
   marca_de_clase <- brks + int/2
 
   # Create data
@@ -97,8 +99,8 @@ hydroCHISQR <- function(df, nc, dist_param, alpha) {
     geom_bar(colour="black", stat = "identity", width=5) +
     xlab("Variable") + ylab("Absolute Freq.") +
     theme_bw() + scale_fill_manual(values="gold2", labels="Real Frec.") +
-    geom_line(data = df, aes(colour = df$Distrib), lwd = 1) +
-    geom_point(data = df, aes(colour = df$Distrib), shape = 5, size = 1.5)
+    geom_line(data = df_aux, aes(colour = df_aux$Distrib), lwd = 1) +
+    geom_point(data = df_aux, aes(colour = df_aux$Distrib), shape = 5, size = 1.5)
 
   table_chi <- t(distrib_calc_theo)
   tbl <- ggtexttable(table_chi)
@@ -106,6 +108,7 @@ hydroCHISQR <- function(df, nc, dist_param, alpha) {
   ggarrange(plot1, tbl,
             ncol = 1, nrow = 2,
             heights = c(1.8,1))
+
 
   print("Chi-Calculated / Chi-Theorical for each distribution = ")
   print(distrib_calc_theo)
