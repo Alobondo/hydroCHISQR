@@ -4,16 +4,18 @@
 \alias{hydroCHISQR}
 \title{Chi - Squared test for hydrological frequency analysis}
 \usage{
-hydroCHISQR(df, nc, dist_param, alpha)
+hydroCHISQR(df, nc, dist_param, alpha, c_test)
 }
 \arguments{
 \item{df}{Data frame with observations and distributions adjusted}
 
-\item{nc}{Number of classes}
+\item{nc}{Number of classes, default 1 for Sturges, 2 for Scott, 3 for Freedman-Diaconis}
 
 \item{dist_param}{Number of parameters of the distributions in df}
 
-\item{alpha}{Significance level}
+\item{alpha}{Significance level, typical 0.05}
+
+\item{c_test}{Statistical result or plot, default 1 for statistical and for 2 plot}
 }
 \description{
 Chi - Squared test for hydrological frequency analysis

@@ -1,12 +1,13 @@
 #' Chi - Squared test for hydrological frequency analysis
 #' @export
 #' @param df Data frame with observations and distributions adjusted
-#' @param nc Number of classes
+#' @param nc Number of classes, default 1 for Sturges, 2 for Scott, 3 for Freedman-Diaconis
 #' @param dist_param Number of parameters of the distributions in df
-#' @param alpha Significance level
+#' @param alpha Significance level, typical 0.05
+#' @param c_test Statistical result or plot, default 1 for statistical and for 2 plot
 #' @import grDevices ggplot2 reshape2 stats ggpubr
 
-hydroCHISQR <- function(df, nc, dist_param, alpha) {
+hydroCHISQR <- function(df, nc, dist_param, alpha, c_test) {
   # Number of classes for histograms
   # nc = 1 by default
   if (nc == 3) {
@@ -82,38 +83,38 @@ hydroCHISQR <- function(df, nc, dist_param, alpha) {
 
   marca_de_clase <- brks + int/2
 
-  # Create data
-  data <- data.frame(
-    name = marca_de_clase[1:length(marca_de_clase) - 1] ,
-    value = obs_out[,"Freq"]
-  )
+  if (c_test == 2) {
+    # Create data
+    data <- data.frame(
+      name = marca_de_clase[1:length(marca_de_clase) - 1] ,
+      value = obs_out[,"Freq"]
+      )
 
-  df_aux <- data.frame(matrix(unlist(sim_factor), ncol=length(sim_factor), byrow=F))[(nbreaks+1):(2*nbreaks),]
-  colnames(df_aux) <- colnames(df)[2:(dim(df)[2])]
-  rownames(df_aux) <- seq(1,nbreaks,1)
-  df_aux <- data.frame(name = data$name, df_aux)
-  df_aux <- reshape2::melt(df_aux, id.vars = 'name', variable.name = 'Distrib')
+    df_aux <- data.frame(matrix(unlist(sim_factor), ncol=length(sim_factor), byrow=F))[(nbreaks+1):(2*nbreaks),]
+    colnames(df_aux) <- colnames(df)[2:(dim(df)[2])]
+    rownames(df_aux) <- seq(1,nbreaks,1)
+    df_aux <- data.frame(name = data$name, df_aux)
+    df_aux <- reshape2::melt(df_aux, id.vars = 'name', variable.name = 'Distrib')
 
-  # Barplot
-  plot1 <- ggplot2::ggplot(data, aes(x=data$name, y=data$value, fill="gold2")) +
-    geom_bar(colour="black", stat = "identity", width=5) +
-    xlab("Variable") + ylab("Absolute Freq.") +
-    theme_bw() + scale_fill_manual(values="gold2", labels="Real Frec.") +
-    geom_line(data = df_aux, aes(colour = df_aux$Distrib), lwd = 1) +
-    geom_point(data = df_aux, aes(colour = df_aux$Distrib), shape = 5, size = 1.5)
+    # Barplot
+    plot1 <- ggplot2::ggplot(data, aes(x=data$name, y=data$value, fill="gold2")) +
+      geom_bar(colour="black", stat = "identity", width=5) +
+      xlab("Variable") + ylab("Absolute Freq.") +
+      theme_bw() + scale_fill_manual(values="gold2", labels="Real Frec.") +
+      geom_line(data = df_aux, aes(colour = df_aux$Distrib), lwd = 1) +
+      geom_point(data = df_aux, aes(colour = df_aux$Distrib), shape = 5, size = 1.5)
 
-  table_chi <- t(distrib_calc_theo)
-  tbl <- ggtexttable(table_chi)
+    table_chi <- t(distrib_calc_theo)
+    tbl <- ggtexttable(table_chi)
 
-  ggarrange(plot1, tbl,
+    ggarrange(plot1, tbl,
             ncol = 1, nrow = 2,
             heights = c(1.8,1))
-
-
-  print("Chi-Calculated / Chi-Theorical for each distribution = ")
-  print(distrib_calc_theo)
-
-  print(paste0("Distribution of minimal Chi-Calculated / Chi-Theorical = ",aux1))
-  print(paste0("Minimal Chi-Calculated / Chi-Theorical = ",aux2))
+  } else {
+    print("Chi-Calculated / Chi-Theorical for each distribution = ")
+    print(distrib_calc_theo)
+    print(paste0("Distribution of minimal Chi-Calculated / Chi-Theorical = ",aux1))
+    print(paste0("Minimal Chi-Calculated / Chi-Theorical = ",aux2))
+  }
 
 }
