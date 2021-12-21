@@ -1,5 +1,5 @@
 # hydroCHISQR
-Chi - Squared test for hydrological frequency analysis
+R package to apply a Chi - Squared test for hydrological frequency analysis
 
 # Requirements
 Dependencies:
