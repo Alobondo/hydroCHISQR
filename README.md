@@ -16,12 +16,13 @@ library(hydroCHISQR)
 # Usage
 Functions | Description |
 --- | --- |
-```hydroCHISQR(df, nc, dist_param, alpha, c_test)``` | Apply the Chi - Squared test for hydrological frequency analysis. |
+```hydroCHISQR(df, nc, dist_param, alpha, c_test, c_method)``` | Apply the Chi - Squared test for hydrological frequency analysis. |
 ```df``` | Data frame with observations and distributions adjusted. |
 ```nc``` | Number of classes, default 1 for Sturges, 2 for Scott, 3 for Freedman-Diaconis. |
 ```dist_param``` | Number of parameters of the distributions in df. |
 ```alpha``` | Significance level, typical 0.05. |
 ```c_test``` | Statistical result or plot, default 1 for statistical and 2 for plot. |
+```c_method``` | Chi - Squared test method: default 1 (Varas & Bois, 1998) and 2 (Chow, 1949). | 
 
 ```hydroCHISQR::example_2_params``` Example of frequency analysis result for 2 parameters distributions, with first column as observations.
 ```hydroCHISQR::example_3_params``` Example of frequency analysis result for 3 parameters distributions, with first column as observations.
