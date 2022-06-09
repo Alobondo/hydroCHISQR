@@ -4,7 +4,7 @@
 \alias{hydroCHISQR}
 \title{Chi - Squared test for hydrological frequency analysis}
 \usage{
-hydroCHISQR(df, nc, dist_param, alpha, c_test)
+hydroCHISQR(df, nc, dist_param, alpha, c_test, c_method)
 }
 \arguments{
 \item{df}{Data frame with observations and distributions adjusted}
@@ -16,6 +16,8 @@ hydroCHISQR(df, nc, dist_param, alpha, c_test)
 \item{alpha}{Significance level, typical 0.05}
 
 \item{c_test}{Statistical result or plot, default 1 for statistical and for 2 plot}
+
+\item{c_method}{Chi - Squared test method: default 1 (Varas & Bois, 1998) and 2 (Chow, 1949): e(i) = F(i-1) - F(i), to perform Chi(i) = (e(i) - fi)^2/e(i)}
 }
 \description{
 Chi - Squared test for hydrological frequency analysis
