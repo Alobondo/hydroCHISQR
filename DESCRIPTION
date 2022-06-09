@@ -1,20 +1,21 @@
 Package: hydroCHISQR
 Type: Package
 Title: Chi Squared test for hydrological frequency analysis
-Version: 1.1.0
+Version: 1.2.0
 Date: 2021-12-17
 Authors@R: person("Alonso", "Arriagada", email = "alonso.arriagada@usach.cl", role = c("aut", "cre"))
 Description: Chi Squared test for hydrological frequency analysis.
 License: GPL-3
 LazyData: true
 Encoding: UTF-8
-RoxygenNote: 7.1.1
+RoxygenNote: 7.1.2
 Imports:
     grDevices,
     ggplot2,
     reshape2,
     stats,
-    ggpubr
+    ggpubr,
+    FAmle
 Suggests: 
     rmarkdown,
     knitr
