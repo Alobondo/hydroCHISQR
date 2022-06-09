@@ -3,7 +3,7 @@ R package to apply a Chi - Squared test for hydrological frequency analysis
 
 # Requirements
 Dependencies:
-  grDevices, ggplot2, reshape2, stats, ggpubr
+  grDevices, ggplot2, reshape2, stats, ggpubr, FAmle
 
 # Installation
 You can install the development version of **hydroCHISQR** from GitHub with this R command:
