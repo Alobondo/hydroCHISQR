@@ -5,9 +5,10 @@
 #' @param dist_param Number of parameters of the distributions in df
 #' @param alpha Significance level, typical 0.05
 #' @param c_test Statistical result or plot, default 1 for statistical and for 2 plot
-#' @import grDevices ggplot2 reshape2 stats ggpubr
+#' @param c_method Chi - Squared test method: default 1 (Varas & Bois, 1998) and 2 (Chow, 1949): e(i) = F(i-1) - F(i), to perform Chi(i) = (e(i) - fi)^2/e(i)
+#' @import grDevices ggplot2 reshape2 stats ggpubr FAmle
 
-hydroCHISQR <- function(df, nc, dist_param, alpha, c_test) {
+hydroCHISQR <- function(df, nc, dist_param, alpha, c_test, c_method) {
   # Number of classes for histograms
   # nc = 1 by default
   if (nc == 3) {
@@ -40,6 +41,10 @@ hydroCHISQR <- function(df, nc, dist_param, alpha, c_test) {
     Frec_rel_sim[[i]] <- sim_factor[[i]][,'Freq']/sum(obs_out$Freq)
   }
 
+
+  if (c_method == 1) {
+
+  # Chi-Squared method 1
   sim_out <- list()
   for(i in 1:(dim(df)[2]-1)) {
     sim_out[[i]] <- (obs_out[,'relative'] - Frec_rel_sim[[i]])^2/Frec_rel_sim[[i]]
@@ -49,6 +54,29 @@ hydroCHISQR <- function(df, nc, dist_param, alpha, c_test) {
   chi_calc <- list()
   for(i in 1:(dim(df)[2]-1)) {
     chi_calc[[i]] <- sum(obs_out[,'Freq'])*sum(sim_out[[i]],na.rm = TRUE)
+  }
+
+  } else {
+
+    # Chi-Squared method 2
+    # F(i)
+    F_i <- list()
+    for(i in 1:(dim(df)[2]-1)) F_i[[i]] <- FAmle::distr(x=brks,model = colnames(df)[2:(dim(df)[2])] ,type='p')
+
+    e_i <- as.data.frame(F_i)
+    e_i <- e_i[2:dim(e_i)[1],] - e_i[1:dim(e_i)[1]-1,]
+
+    sim_out <- list()
+    for(i in 1:(dim(df)[2]-1)) {
+      sim_out[[i]] <- (obs_out[,'relative'] - e_i[[i]])^2/e_i[[i]]
+      sim_out[[i]][is.nan(sim_out[[i]])] = 0
+    }
+
+    chi_calc <- list()
+    for(i in 1:(dim(df)[2]-1)) {
+      chi_calc[[i]] <- sum(obs_out[,'Freq'])*sum(sim_out[[i]],na.rm = TRUE)
+    }
+
   }
 
   # Level of significance alpha (tipical 5%).
