@@ -5,7 +5,7 @@
 #' @param dist_param Number of parameters of the distributions in df
 #' @param alpha Significance level, typical 0.05
 #' @param c_test Statistical result or plot, default 1 for statistical and for 2 plot
-#' @param c_method Chi - Squared test method: default 1 (Varas & Bois, 1998) and 2 (Chow, 1949): e(i) = F(i-1) - F(i), to perform Chi(i) = (e(i) - fi)^2/e(i)
+#' @param c_method Chi - Squared test method: 1 (Varas & Bois, 1998) and 2 (Chow, 1949): e(i) = F(i-1) - F(i), to perform Chi(i) = (e(i) - fi)^2/e(i)
 #' @import grDevices ggplot2 reshape2 stats ggpubr FAmle
 
 hydroCHISQR <- function(df, nc, dist_param, alpha, c_test, c_method) {
