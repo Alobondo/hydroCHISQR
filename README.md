@@ -26,8 +26,11 @@ Functions | Description |
 ```c_method``` | Chi - Squared test method: 1 (Varas & Bois, 1998) and 2 (Chow, 1949). | 
 
 ```hydroCHISQR::example_2_params``` Example of frequency analysis result for 2 parameters distributions, with first column as observations.
+
 ```hydroCHISQR::example_3_params``` Example of frequency analysis result for 3 parameters distributions, with first column as observations.
+
 ```hydroCHISQR::fit_2_params``` Example of 2 parameters distributions fitted.
+
 ```hydroCHISQR::fit_3_params``` Example of 3 parameters distributions fitted.
 
 # Reporting bugs
