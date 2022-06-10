@@ -6,7 +6,7 @@ Dependencies:
   grDevices, ggplot2, reshape2, stats, ggpubr, FAmle, FAdist
 
 Recomendations:
-  actuar pakcage
+  actuar package
 
 # Installation
 You can install the development version of **hydroCHISQR** from GitHub with this R command:
