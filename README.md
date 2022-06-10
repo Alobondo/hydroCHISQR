@@ -4,6 +4,7 @@ R package to apply a Chi - Squared test for hydrological frequency analysis
 # Requirements
 Dependencies:
   grDevices, ggplot2, reshape2, stats, ggpubr, FAmle, FAdist
+
 Recomendations:
   actuar pakcage
 
