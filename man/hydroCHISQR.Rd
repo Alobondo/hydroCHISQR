@@ -4,10 +4,12 @@
 \alias{hydroCHISQR}
 \title{Chi - Squared test for hydrological frequency analysis}
 \usage{
-hydroCHISQR(df, nc, dist_param, alpha, c_test, c_method)
+hydroCHISQR(df, list_fit, nc, dist_param, alpha, c_test, c_method)
 }
 \arguments{
 \item{df}{Data frame with observations and distributions adjusted}
+
+\item{list_fit}{List with distributions and parameters fitted (only used with method 2)}
 
 \item{nc}{Number of classes, default 1 for Sturges, 2 for Scott, 3 for Freedman-Diaconis}
 
